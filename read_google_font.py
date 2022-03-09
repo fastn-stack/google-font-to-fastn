@@ -2,6 +2,7 @@ import sys
 import requests
 import os
 
+package_name = "foo"
 
 def get_url(comment, ff, fs, fw, src):
     if comment == None:
@@ -10,13 +11,12 @@ def get_url(comment, ff, fs, fw, src):
     path = "./-/" + file_name
     if not os.path.exists('./-/'):
         os.makedirs('./-/')
-    print (file_name, src)
+    print ("Processing...", file_name)
     url = src.split(")")[0].replace("url(", "").strip()
     f = open(path, "w")
     req = requests.get(url)
     f.write(req.text)
-    return "url(" + file_name + ")"
-
+    return "url(-/" + package_name + "/fonts/" + file_name + ")"
 
 
 font_txt = open("font.txt")
@@ -79,11 +79,11 @@ unicode-range: %s
 
 content = """-- import: fpm
 
--- fpm.package: foo
+-- fpm.package: %s
 
 %s
     
-""" % "\n\n\n".join(fonts)
+""" % (package_name, "\n\n\n".join(fonts))
 
 f = open("FPM.ftd", "w")
 f.write(content)
