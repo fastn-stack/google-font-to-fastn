@@ -3,20 +3,21 @@ import requests
 import os
 
 package_name = "fifthtry.github.io/roboto"
+name = "roboto"
 
 def get_url(comment, ff, fs, fw, src):
     if comment == None:
         return None
     file_name = "-".join([ff.strip(), fw.strip(), fs.strip(), comment.strip()]) + ".woff2"
-    path = "./-/" + file_name
-    if not os.path.exists('./-/'):
-        os.makedirs('./-/')
+    path = "./static/" + file_name
+    if not os.path.exists('./static/'):
+        os.makedirs('./static/')
     print ("Processing...", file_name)
     url = src.split(")")[0].replace("url(", "").strip()
-    f = open(path, "w")
+    f = open(path, "wb")
     req = requests.get(url)
-    f.write(req.text)
-    return "url(-/" + package_name + "/static/" + file_name + ")"
+    f.write(req.content)
+    return "-/" + package_name + "/static/" + file_name
 
 
 font_txt = open("font.txt")
@@ -84,7 +85,7 @@ zip: github.com/fifthtry/%s/archive/refs/heads/main.zip
 
 %s
     
-""" % (package_name, package_name, "\n\n\n".join(fonts))
+""" % (package_name, name, "\n\n\n".join(fonts))
 
 f = open("FPM.ftd", "w")
 f.write(content)

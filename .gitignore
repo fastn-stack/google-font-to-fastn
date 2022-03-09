@@ -129,6 +129,6 @@ dmypy.json
 .pyre/
 
 FPM.ftd
--
+static
 .idea
 .DS_Store
