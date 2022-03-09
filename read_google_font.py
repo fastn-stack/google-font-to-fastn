@@ -2,7 +2,7 @@ import sys
 import requests
 import os
 
-package_name = "roboto"
+package_name = "fifthtry.github.io/roboto"
 
 def get_url(comment, ff, fs, fw, src):
     if comment == None:
@@ -16,7 +16,7 @@ def get_url(comment, ff, fs, fw, src):
     f = open(path, "w")
     req = requests.get(url)
     f.write(req.text)
-    return "url(-/" + package_name + "/" + file_name + ")"
+    return "url(-/" + package_name + "/static/" + file_name + ")"
 
 
 font_txt = open("font.txt")
