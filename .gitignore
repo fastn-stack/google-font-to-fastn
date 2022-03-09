@@ -131,3 +131,4 @@ dmypy.json
 FPM.ftd
 -
 .idea
+.DS_Store

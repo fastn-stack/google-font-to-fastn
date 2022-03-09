@@ -2,7 +2,7 @@ import sys
 import requests
 import os
 
-package_name = "foo"
+package_name = "roboto"
 
 def get_url(comment, ff, fs, fw, src):
     if comment == None:
@@ -80,10 +80,11 @@ unicode-range: %s
 content = """-- import: fpm
 
 -- fpm.package: %s
+zip: github.com/fifthtry/%s/archive/refs/heads/main.zip
 
 %s
     
-""" % (package_name, "\n\n\n".join(fonts))
+""" % (package_name, package_name, "\n\n\n".join(fonts))
 
 f = open("FPM.ftd", "w")
 f.write(content)
