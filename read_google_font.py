@@ -16,7 +16,7 @@ def get_url(comment, ff, fs, fw, src):
     f = open(path, "w")
     req = requests.get(url)
     f.write(req.text)
-    return "url(-/" + package_name + "/fonts/" + file_name + ")"
+    return "url(-/" + package_name + "/" + file_name + ")"
 
 
 font_txt = open("font.txt")
