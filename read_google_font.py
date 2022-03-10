@@ -2,13 +2,13 @@ import sys
 import requests
 import os
 
-package_name = "fifthtry.github.io/roboto"
-name = "roboto"
+package_name = "fifthtry.github.io/opensans"
+repo = "opensans"
 
 def get_url(comment, ff, fs, fw, src):
     if comment == None:
         return None
-    file_name = "-".join([ff.strip(), fw.strip(), fs.strip(), comment.strip()]) + ".woff2"
+    file_name = "-".join([ff, fw, fs, comment]).replace(" ", "-") + ".woff2"
     path = "./static/" + file_name
     if not os.path.exists('./static/'):
         os.makedirs('./static/')
@@ -28,6 +28,7 @@ for doc in val.split("}"):
     ff = None
     fs = None
     fw = None
+    fstretch = None
     fd = None
     src = None
     ur = None
@@ -40,27 +41,20 @@ for doc in val.split("}"):
             comment = line.strip("/*").strip()
             state = "ff"
             continue
-        elif state == "ff":
-            ff = line.split(":")[1].replace("'", "").replace(";", "").strip()
-            state = "fs"
-            continue
-        elif state == "fs":
+        name = line.split(":")[0].strip()
+        if name == "font-family":
+            ff = line.split(":")[1].replace("'", "").replace(";", "").strip().replace(" ", "-")
+        elif name == "font-style":
             fs = line.split(":")[1].replace("'", "").replace(";", "").strip()
-            state = "fw"
-            continue
-        elif state == "fw":
+        elif name == "font-weight":
             fw = line.split(":")[1].replace("'", "").replace(";", "").strip()
-            state = "fd"
-            continue
-        elif state == "fd":
+        elif name == "font-stretch":
+            fstretch = line.split(":")[1].replace("'", "").replace(";", "").strip()
+        elif name == "font-display":
             fd = line.split(":")[1].replace("'", "").replace(";", "").strip()
-            state = "src"
-            continue
-        elif state == "src":
+        elif name == "src":
             src = ":".join(line.split(":")[1:]).strip()
-            state = "ur"
-            continue
-        elif state == "ur":
+        elif name == "unicode-range":
             ur = line.split(":")[1].replace("'", "").replace(";", "").strip()
 
 
@@ -74,7 +68,10 @@ style: %s
 weight: %s
 woff2: %s
 unicode-range: %s
-    """ % (ff, fs, fw, gurl, ur)
+""" % (ff, fs, fw, gurl, ur)
+
+    if fstretch != None:
+        font += "stretch: " + fstretch
 
     fonts.append(font)
 
@@ -85,7 +82,7 @@ zip: github.com/fifthtry/%s/archive/refs/heads/main.zip
 
 %s
     
-""" % (package_name, name, "\n\n\n".join(fonts))
+""" % (package_name, repo, "\n\n\n".join(fonts))
 
 f = open("FPM.ftd", "w")
 f.write(content)
