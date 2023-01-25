@@ -1,6 +1,6 @@
 # google-font-to-fpm
 
-#How to use font:
+#How to use font: [Read this documentation](https://fpm.dev/how-to/create-font-package/)
 
 Lets try to add fifthtry.github.io/roboto font in a fpm package
 
