@@ -130,6 +130,7 @@ dmypy.json
 .pyre/
 
 FPM.ftd
+FASTN.ftd
 static
 .idea
 .DS_Store
