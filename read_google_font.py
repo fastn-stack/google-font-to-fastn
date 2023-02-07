@@ -63,7 +63,7 @@ for doc in val.split("}"):
         continue
 
     font = """
--- fpm.font: %s
+-- fastn.font: %s
 style: %s
 weight: %s
 woff2: %s
@@ -75,16 +75,16 @@ unicode-range: %s
 
     fonts.append(font)
 
-content = """-- import: fpm
+content = """-- import: fastn
 
--- fpm.package: %s
+-- fastn.package: %s
 zip: github.com/fifthtry/%s/archive/refs/heads/main.zip
 
 %s
     
 """ % (package_name, repo, "\n\n\n".join(fonts))
 
-f = open("FPM.ftd", "w")
+f = open("FASTN.ftd", "w")
 f.write(content)
 
 
